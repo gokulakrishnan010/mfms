@@ -1,0 +1,11 @@
+.git
+.gradle
+**/.DS_Store
+# DO NOT ignore these:
+# !gradlew
+# !gradlew.bat
+# !gradle/**
+# !settings.gradle*
+# !build.gradle*
+# !pom.xml
+# !src/**

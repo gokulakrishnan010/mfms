@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" packagingData="true">
+
+    <!-- ===== Common properties ===== -->
+    <springProperty name="appName"   source="spring.application.name" defaultValue="mfms"/>
+    <springProperty name="appProfile" source="spring.profiles.active" defaultValue="local"/>
+    <property name="ENV" value="${APP_ENV:-${appProfile}}"/>
+    <property name="HOST" value="${HOSTNAME:--${appProfile}}"/>
+
+    <!-- Reduce noisy libs (optional) -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.hibernate.SQL" level="WARN"/>
+    <logger name="org.flywaydb" level="INFO"/>
+    <logger name="io.opentelemetry" level="INFO"/>
+
+    <!-- ===== JSON encoder (Logstash Logback Encoder 8.x + Logback 1.5.x) ===== -->
+    <appender name="CONSOLE_JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <!-- ISO 8601 with millis -->
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+
+                <!-- Level, thread, logger -->
+                <logLevel/>
+                <threadName/>
+                <loggerName/>
+
+                <!-- Include markers (useful for structured tagging) -->
+                <markers/>
+
+                <!-- MDC will carry OTEL ids if you’ve enabled the MDC bridge -->
+                <!-- (trace_id, span_id, etc.) -->
+                <mdc/>
+
+                <!-- Message and args -->
+                <message/>
+                <arguments/>
+
+                <!-- Caller data helps during prod debugging; cheap in 1.5.x -->
+                <callerData/>
+
+                <!-- Exception as JSON with trimmed stack -->
+                <stackTrace>
+                    <throwableConverter
+                            class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                        <maxDepthPerThrowable>50</maxDepthPerThrowable>
+                        <maxLength>8192</maxLength>
+                        <rootCauseFirst>true</rootCauseFirst>
+                    </throwableConverter>
+                </stackTrace>
+
+                <!-- Static fields every line -->
+                <globalCustomFields>
+                    {
+                    "service":"${appName}",
+                    "environment":"${ENV}",
+                    "host":"${HOST}"
+                    }
+                </globalCustomFields>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- Async wrapper for high-throughput prod logging -->
+    <appender name="ASYNC_CONSOLE_JSON" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>8192</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="CONSOLE_JSON"/>
+    </appender>
+
+    <!-- ===== Default: container-friendly JSON to STDOUT ===== -->
+    <root level="INFO">
+        <appender-ref ref="ASYNC_CONSOLE_JSON"/>
+    </root>
+
+    <!-- ===== Optional: enable rolling file logs when profile 'file' is active =====
+         Run with: SPRING_PROFILES_ACTIVE=prod,file
+    -->
+    <springProfile name="file">
+        <property name="LOG_DIR" value="${LOG_DIR:-/var/log/${appName}}"/>
+        <appender name="FILE_JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_DIR}/${appName}.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <!-- daily rollover, 100MB chunks, keep 30 days -->
+                <fileNamePattern>${LOG_DIR}/archive/%d{yyyy-MM-dd}/${appName}.%i.log.gz</fileNamePattern>
+                <maxFileSize>100MB</maxFileSize>
+                <maxHistory>30</maxHistory>
+                <totalSizeCap>10GB</totalSizeCap>
+                <cleanHistoryOnStart>true</cleanHistoryOnStart>
+            </rollingPolicy>
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <timestamp><timeZone>UTC</timeZone></timestamp>
+                    <logLevel/><threadName/><loggerName/><markers/><mdc/>
+                    <message/><arguments/><callerData/>
+                    <stackTrace>
+                        <throwableConverter
+                                class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                            <maxDepthPerThrowable>50</maxDepthPerThrowable>
+                            <maxLength>8192</maxLength>
+                            <rootCauseFirst>true</rootCauseFirst>
+                        </throwableConverter>
+                    </stackTrace>
+                    <globalCustomFields>
+                        {"service":"${appName}","environment":"${ENV}","host":"${HOST}"}
+                    </globalCustomFields>
+                </providers>
+            </encoder>
+        </appender>
+
+        <appender name="ASYNC_FILE_JSON" class="ch.qos.logback.classic.AsyncAppender">
+            <queueSize>8192</queueSize>
+            <discardingThreshold>0</discardingThreshold>
+            <neverBlock>true</neverBlock>
+            <appender-ref ref="FILE_JSON"/>
+        </appender>
+
+        <!-- In 'file' profile, also write to file -->
+        <root level="INFO">
+            <appender-ref ref="ASYNC_CONSOLE_JSON"/>
+            <appender-ref ref="ASYNC_FILE_JSON"/>
+        </root>
+    </springProfile>
+
+</configuration>
