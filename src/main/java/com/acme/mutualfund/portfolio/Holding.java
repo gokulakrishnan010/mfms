@@ -22,9 +22,11 @@ public class Holding {
     @ManyToOne(optional = false)
     @JoinColumn(name = "fund_symbol")
     private Fund fund;
-    @Column(precision = 19, scale = 6)
+    @Column(precision = 24, scale = 8, nullable = false)
     private BigDecimal units;
+
     @Version
+    @Column(nullable = false)
     private long version;
 
     public static Holding newOf(String username, Fund fund) {

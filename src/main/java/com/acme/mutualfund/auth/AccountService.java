@@ -27,4 +27,11 @@ public class AccountService {
                 .build();
         repo.save(acc);
     }
+
+    @Transactional
+    public void disable(String username) {
+        var acc = repo.findById(username).orElseThrow();
+        acc.setEnabled(false);
+        repo.save(acc);
+    }
 }
