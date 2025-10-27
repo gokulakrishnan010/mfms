@@ -22,6 +22,3 @@ GRANT ALL ON SCHEMA mfms TO mfms;
 -- 5) Role defaults
 ALTER ROLE mfms SET search_path TO mfms, public;
 
--- (Optional) Default privileges for future objects created by the bootstrap user:
--- ALTER DEFAULT PRIVILEGES IN SCHEMA mfms GRANT ALL ON TABLES TO mfms;
--- ALTER DEFAULT PRIVILEGES IN SCHEMA mfms GRANT ALL ON SEQUENCES TO mfms;

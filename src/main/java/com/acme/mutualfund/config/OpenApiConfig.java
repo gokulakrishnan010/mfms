@@ -7,5 +7,8 @@ import io.swagger.v3.oas.models.OpenAPI;
 
 @Configuration
 public class OpenApiConfig {
-  @Bean OpenAPI api() { return new OpenAPI().info(new Info().title("Mutual Fund API").version("v1")); }
+    @Bean
+    OpenAPI api() {
+        return new OpenAPI().info(new Info().title("Mutual Fund API").version("v1"));
+    }
 }

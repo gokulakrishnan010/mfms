@@ -12,24 +12,24 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AccountController {
-  private final AccountService accounts;
+    private final AccountService accounts;
 
-  @PostMapping("/enroll")
-  public ResponseEntity<Void> enroll(@Valid @RequestBody EnrollReq req){
-    accounts.enroll(req, false);
-    return ResponseEntity.status(HttpStatus.CREATED).build();
-  }
+    @PostMapping("/enroll")
+    public ResponseEntity<Void> enroll(@Valid @RequestBody EnrollReq req) {
+        accounts.enroll(req, false);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 
-  @PreAuthorize("hasRole('ADMIN')")
-  @PostMapping("/enroll/admin")
-  public ResponseEntity<Void> enrollAdmin(@Valid @RequestBody EnrollReq req){
-    accounts.enroll(req, true);
-    return ResponseEntity.status(HttpStatus.CREATED).build();
-  }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/enroll/admin")
+    public ResponseEntity<Void> enrollAdmin(@Valid @RequestBody EnrollReq req) {
+        accounts.enroll(req, true);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 
-  @GetMapping("/me")
-  public PrincipalDto me(Authentication auth){
-    var roles = auth.getAuthorities().stream().map(a -> a.getAuthority()).toList();
-    return new PrincipalDto(auth.getName(), roles);
-  }
+    @GetMapping("/me")
+    public PrincipalDto me(Authentication auth) {
+        var roles = auth.getAuthorities().stream().map(a -> a.getAuthority()).toList();
+        return new PrincipalDto(auth.getName(), roles);
+    }
 }
