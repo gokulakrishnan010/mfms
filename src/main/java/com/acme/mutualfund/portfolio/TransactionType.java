@@ -1,3 +1,3 @@
 package com.acme.mutualfund.portfolio;
 
-public enum TransactionType { BUY, REDEEM }
+public enum TransactionType {BUY, REDEEM}

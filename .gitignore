@@ -1,37 +1,109 @@
-HELP.md
-.gradle
+# --------------------------------------------------------------------
+# 1️⃣ Java / Gradle Build
+# --------------------------------------------------------------------
+.gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+out/
 bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+classes/
+dependency-reduced-pom.xml
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# IntelliJ / STS / Eclipse project files
+.idea/
 *.iml
 *.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
+*.iws
+.project
+.classpath
+.settings/
 .vscode/
+
+# Logs
+logs/
+*.log
+*.log.*
+*.out
+
+# --------------------------------------------------------------------
+# 2️⃣ Spring Boot Specific
+# --------------------------------------------------------------------
+# Local config & environment files
+application-local.yml
+application-test.yml
+application-dev.yml
+application-prod.yml
+.env
+*.env
+*.local.properties
+
+# --------------------------------------------------------------------
+# 3️⃣ OS Specific
+# --------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# --------------------------------------------------------------------
+# 4️⃣ Docker / Compose
+# --------------------------------------------------------------------
+# Local container data or build cache
+pgdata/
+*.pid
+*.seed
+*.bak
+
+# Vault / Secrets
+vault/
+vault-data/
+*.hcl
+
+# --------------------------------------------------------------------
+# 5️⃣ Test & Coverage Reports
+# --------------------------------------------------------------------
+test-results/
+jacoco.exec
+jacocoTestReport.xml
+/build/reports/
+coverage/
+reports/
+
+# --------------------------------------------------------------------
+# 6️⃣ SonarQube / IDE caches
+# --------------------------------------------------------------------
+.sonar/
+scannerwork/
+.idea_modules/
+*.swp
+
+# --------------------------------------------------------------------
+# 7️⃣ Observability (Prometheus, Loki, Tempo)
+# --------------------------------------------------------------------
+observability/data/
+observability/logs/
+observability/tmp/
+*.db
+*.wal
+
+# --------------------------------------------------------------------
+# 8️⃣ Miscellaneous
+# --------------------------------------------------------------------
+*.tmp
+*.bak
+*.orig
+*.swp
+*.swo
+*.un~
+*.pid
+*.seed
+*.db
+*.tgz
+*.tar.gz
+*.zip
+
+# --------------------------------------------------------------------
+# 9️⃣ Mac / System
+# --------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?

@@ -1,6 +1,15 @@
 version: "3.8"
 
 services:
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    ports: ["9000:9000"]
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
   db:
     container_name: mfms-db
     image: postgres:16
@@ -16,7 +25,7 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
       - ./db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
-    ports: ["5432:5432"] # only if you also want host access
+    ports: ["5432:5432"]
 
   mfms:
     container_name: mfms-service
@@ -40,7 +49,6 @@ services:
       SPRING_APPLICATION_NAME: mfms
       APP_ENV: local
 
-    # 👇 mount the agent jar into the container (read-only)
     volumes:
       - ./observability/otel/opentelemetry-javaagent.jar:/otel-agent/opentelemetry-javaagent.jar:ro
 
@@ -68,12 +76,12 @@ services:
   tempo:
     container_name: tempo
     image: grafana/tempo:latest
-    command: [ "-config.file=/etc/tempo/tempo.yml" ]   # <- match .yaml or .yml
+    command: [ "-config.file=/etc/tempo/tempo.yml" ]
     volumes:
       - ./observability/tempo/tempo.yml:/etc/tempo/tempo.yml:ro
     ports:
-      - "3200:3200"  # external UI/HTTP API (no need to publish 4317/4318 to host)
-
+      - "3200:3200"
+      -
   # ===== Prometheus (Metrics) =====
   prometheus:
     image: prom/prometheus:latest
@@ -118,7 +126,7 @@ services:
       - tempo
       - loki
 
-  # ===== (Your) Vault (left as-is) =====
+  # ===== Vault =====
   vault:
     image: hashicorp/vault:1.17
     container_name: mfms-vault
@@ -137,3 +145,5 @@ volumes:
   loki-data:
   tempo-data:
   pgdata:
+  sonarqube_data:
+  sonarqube_logs:

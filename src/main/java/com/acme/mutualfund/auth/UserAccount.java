@@ -11,10 +11,12 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class UserAccount {
-  @Id private String username;
-  private String passwordHash;
-  @Enumerated(EnumType.STRING) private Role role;
+    @Id
+    private String username;
+    private String passwordHash;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-  @Builder.Default
-  private boolean enabled = true;
+    @Builder.Default
+    private boolean enabled = true;
 }
