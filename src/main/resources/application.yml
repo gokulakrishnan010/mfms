@@ -65,3 +65,7 @@ management:
       service.name: mfms
     enable:
       jvm: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

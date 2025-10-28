@@ -81,7 +81,6 @@ services:
       - ./observability/tempo/tempo.yml:/etc/tempo/tempo.yml:ro
     ports:
       - "3200:3200"
-      -
   # ===== Prometheus (Metrics) =====
   prometheus:
     image: prom/prometheus:latest

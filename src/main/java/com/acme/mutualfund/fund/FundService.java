@@ -18,9 +18,9 @@ public class FundService {
     private final TradingClock clock;
 
     @Transactional
-    public Fund create(CreateFundReq req) {
-        if (funds.existsById(req.symbol())) throw new IllegalArgumentException("FUND_EXISTS");
-        return funds.save(Fund.builder().symbol(req.symbol()).name(req.name()).build());
+    public Fund create(String symbol, String name) {
+        if (funds.existsById(symbol)) throw new IllegalArgumentException("FUND_EXISTS");
+        return funds.save(Fund.builder().symbol(symbol).name(name).build());
     }
 
     @Transactional

@@ -1,5 +1,6 @@
 package com.acme.mutualfund.portfolio;
 
+import com.acme.mutualfund.enums.TransactionType;
 import com.acme.mutualfund.fund.Fund;
 import jakarta.persistence.*;
 
@@ -18,18 +19,26 @@ public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String username;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "fund_symbol")
     private Fund fund;
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TransactionType type;
+
     @Column(precision = 19, scale = 6)
     private BigDecimal units;
+
     @Column(precision = 19, scale = 6)
     private BigDecimal nav;
+
     @Column(precision = 19, scale = 6)
     private BigDecimal amount;
+
     private Instant ts;
 
     public static Trade buy(String username, Fund fund, BigDecimal units, BigDecimal nav, BigDecimal amount) {

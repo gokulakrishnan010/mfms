@@ -1,6 +1,7 @@
 package com.acme.mutualfund.auth;
 
 import com.acme.mutualfund.dto.EnrollReq;
+import com.acme.mutualfund.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,13 @@ public class AccountService {
                 .role(role)
                 .enabled(true)
                 .build();
+        repo.save(acc);
+    }
+
+    @Transactional
+    public void disable(String username) {
+        var acc = repo.findById(username).orElseThrow();
+        acc.setEnabled(false);
         repo.save(acc);
     }
 }
