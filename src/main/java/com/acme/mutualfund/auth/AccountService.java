@@ -1,6 +1,7 @@
 package com.acme.mutualfund.auth;
 
 import com.acme.mutualfund.dto.EnrollReq;
+import com.acme.mutualfund.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

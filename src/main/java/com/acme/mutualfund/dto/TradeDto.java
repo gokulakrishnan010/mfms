@@ -1,55 +1,36 @@
 package com.acme.mutualfund.dto;
 
+import com.acme.mutualfund.enums.TransactionType;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
-@Schema(
-        name = "TradeDto",
-        description = "Represents a trade transaction (buy or redeem) performed by a user."
-)
+@Schema(name = "TradeDto", description = "Represents a trade transaction (buy or redeem) performed by a user.")
 public record TradeDto(
-
-        @Schema(
-                description = "Unique identifier of the trade transaction.",
-                example = "1001"
-        )
+        @Schema(description = "Unique identifier of the trade transaction.", example = "1001",
+                accessMode = Schema.AccessMode.READ_ONLY)
         Long id,
 
-        @Schema(
-                description = "Type of trade operation — BUY or REDEEM.",
-                example = "BUY"
-        )
-        String type,
+        @Schema(description = "Type of trade operation — BUY or REDEEM.", example = "BUY")
+        TransactionType type,   // enum below
 
-        @Schema(
-                description = "Symbol of the mutual fund involved in the trade.",
-                example = "ALPHA"
-        )
+        @Schema(description = "Symbol of the mutual fund involved in the trade.", example = "ALPHA")
         String symbol,
 
-        @Schema(
-                description = "Number of units bought or redeemed.",
-                example = "10.00000000"
-        )
+        @Schema(description = "Number of units bought or redeemed.", example = "10.00000000")
         BigDecimal units,
 
-        @Schema(
-                description = "Net Asset Value (NAV) per unit used for the trade.",
-                example = "51.245600"
-        )
+        @Schema(description = "Net Asset Value (NAV) per unit used for the trade.", example = "51.245600",
+                accessMode = Schema.AccessMode.READ_ONLY)
         BigDecimal nav,
 
-        @Schema(
-                description = "Total trade amount = units × NAV.",
-                example = "512.456000"
-        )
+        @Schema(description = "Total trade amount = units × NAV.", example = "512.456000",
+                accessMode = Schema.AccessMode.READ_ONLY)
         BigDecimal amount,
 
-        @Schema(
-                description = "Timestamp when the trade was executed (ISO-8601 format).",
-                example = "2025-10-28T14:32:55Z"
-        )
-        String ts
-) {}
-
+        @Schema(description = "Timestamp when the trade was executed.", example = "2025-10-28T14:32:55Z",
+                format = "date-time", accessMode = Schema.AccessMode.READ_ONLY)
+        Instant ts
+) {
+}

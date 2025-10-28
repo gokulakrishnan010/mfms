@@ -2,7 +2,9 @@ package com.acme.mutualfund.auth;
 
 import com.acme.mutualfund.dto.EnrollReq;
 import com.acme.mutualfund.dto.PrincipalDto;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,7 +19,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-
 @Tag(name = "Auth")
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -60,18 +61,8 @@ public class AccountController {
                 .build();
     }
 
-    @Operation(
-            summary = "Who am I",
-            description = "Returns the authenticated principal (username and roles)."
-    )
-    @ApiResponse(
-            responseCode = "200",
-            description = "OK",
-            content = @Content(schema = @Schema(implementation = PrincipalDto.class))
-    )
-    @ApiResponse(responseCode = "401", description = "Unauthorized")
-    @ApiResponse(responseCode = "403", description = "Forbidden")
-    @SecurityRequirement(name = "basicAuth")
+
+    @Operation(hidden = true)
     @GetMapping(value = "/me", produces = "application/json")
     public PrincipalDto me(Authentication auth) {
         var roles = auth.getAuthorities().stream()

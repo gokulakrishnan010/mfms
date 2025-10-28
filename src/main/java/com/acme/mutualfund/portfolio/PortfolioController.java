@@ -99,12 +99,12 @@ public class PortfolioController {
         var trade = portfolioService.buy(auth.getName(), req.symbol(), req.units());
         var dto = new TradeDto(
                 trade.getId(),
-                trade.getType().name(),
+                trade.getType(),
                 trade.getFund().getSymbol(),
                 trade.getUnits().setScale(8, RoundingMode.HALF_UP),
                 trade.getNav().setScale(6, RoundingMode.HALF_UP),
                 trade.getAmount().setScale(6, RoundingMode.HALF_UP),
-                trade.getTs().toString()
+                trade.getTs()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
@@ -126,12 +126,12 @@ public class PortfolioController {
         var trade = portfolioService.redeem(auth.getName(), req.symbol(), req.units());
         var dto = new TradeDto(
                 trade.getId(),
-                trade.getType().name(),
+                trade.getType(),
                 trade.getFund().getSymbol(),
                 trade.getUnits().setScale(8, RoundingMode.HALF_UP),
                 trade.getNav().setScale(6, RoundingMode.HALF_UP),
                 trade.getAmount().setScale(6, RoundingMode.HALF_UP),
-                trade.getTs().toString()
+                trade.getTs()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }

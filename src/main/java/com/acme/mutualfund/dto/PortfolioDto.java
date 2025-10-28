@@ -1,7 +1,7 @@
 package com.acme.mutualfund.dto;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -11,9 +11,11 @@ import java.util.List;
 )
 public record PortfolioDto(
 
-        @Schema(
-                description = "List of holdings in the user's portfolio, each including symbol, units, NAV, and value.",
-                implementation = HoldingDto.class
+        @ArraySchema(
+                schema = @Schema(implementation = HoldingDto.class),
+                arraySchema = @Schema(
+                        description = "List of holdings in the user's portfolio, each including symbol, units, NAV, and value."
+                )
         )
         List<HoldingDto> holdings,
 
@@ -23,4 +25,3 @@ public record PortfolioDto(
         )
         BigDecimal totalValueToday
 ) {}
-

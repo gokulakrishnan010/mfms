@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import java.math.BigDecimal;
 
 @Schema(
@@ -21,7 +20,7 @@ public record TradeReq(
         String symbol,
 
         @NotNull
-        @DecimalMin(value = "0.0000001", inclusive = false)
+        @DecimalMin(value = "0.0", inclusive = false)
         @Schema(
                 description = "Number of fund units to buy or redeem. Must be greater than 0.",
                 example = "10.00000000"

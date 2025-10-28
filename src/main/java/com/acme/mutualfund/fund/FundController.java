@@ -62,7 +62,7 @@ public class FundController {
     @PostMapping(value = "/{symbol}/nav", consumes = "application/json", produces = "application/json")
     public ResponseEntity<NavDto> setTodayNav(@PathVariable String symbol, @Valid @RequestBody NavReq req) {
         var nav = fundService.setTodayNav(symbol, req.nav());
-        var dto = new NavDto(symbol, nav.getDate().toString(), nav.getNav());
+        var dto = new NavDto(symbol, nav.getDate(), nav.getNav());
         return ResponseEntity.ok(dto);
     }
 

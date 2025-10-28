@@ -11,18 +11,11 @@ import jakarta.validation.constraints.Size;
 public record EnrollReq(
 
         @NotBlank
-        @Schema(
-                description = "Unique username for the new account.",
-                example = "user1"
-        )
+        @Schema(description = "Unique username for the new account.", example = "user1")
         String username,
 
         @NotBlank
         @Size(min = 8, max = 120)
-        @Schema(
-                description = "User password (minimum 8 characters).",
-                example = "s3cretP@ss"
-        )
+        @Schema(description = "User password (minimum 8 characters).", example = "s3cretP@ss")
         String password
 ) {}
-

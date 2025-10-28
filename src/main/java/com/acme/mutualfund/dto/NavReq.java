@@ -1,12 +1,9 @@
 package com.acme.mutualfund.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
-
 import java.math.BigDecimal;
-
-import io.swagger.v3.oas.annotations.media.Schema;
-
 
 @Schema(name = "NavReq", description = "Request payload to set or update today's NAV for a fund.")
 public record NavReq(
@@ -19,5 +16,3 @@ public record NavReq(
         )
         BigDecimal nav
 ) {}
-
-

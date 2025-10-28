@@ -1,5 +1,6 @@
 package com.acme.mutualfund.portfolio;
 
+import com.acme.mutualfund.enums.TransactionType;
 import com.acme.mutualfund.fund.Fund;
 import jakarta.persistence.*;
 

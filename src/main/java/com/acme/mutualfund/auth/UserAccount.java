@@ -1,5 +1,6 @@
 package com.acme.mutualfund.auth;
 
+import com.acme.mutualfund.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
