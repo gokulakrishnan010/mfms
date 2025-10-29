@@ -1,14 +1,10 @@
-package com.acme.mutualfund.auth;
+package com.acme.mutualfund.controller;
 
+import com.acme.mutualfund.serviceimplementaion.AccountServiceImpl;
 import com.acme.mutualfund.dto.EnrollReq;
 import com.acme.mutualfund.dto.PrincipalDto;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +21,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class AccountController {
 
-    private final AccountService accounts;
+    private final AccountServiceImpl accounts;
 
     @Operation(
             summary = "Enroll a new USER account",

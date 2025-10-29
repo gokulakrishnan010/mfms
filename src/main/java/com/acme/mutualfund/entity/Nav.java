@@ -1,4 +1,4 @@
-package com.acme.mutualfund.fund;
+package com.acme.mutualfund.entity;
 
 import jakarta.persistence.*;
 

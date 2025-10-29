@@ -1,10 +1,12 @@
-package com.acme.mutualfund.fund;
+package com.acme.mutualfund.repository;
 
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import com.acme.mutualfund.entity.Fund;
+import com.acme.mutualfund.entity.Nav;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import jakarta.persistence.LockModeType;

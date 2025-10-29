@@ -1,8 +1,10 @@
-package com.acme.mutualfund.portfolio;
+package com.acme.mutualfund.controller;
 
-import com.acme.mutualfund.config.TradingDayProvider;
+import com.acme.mutualfund.trading.TradingDayProvider;
 import com.acme.mutualfund.dto.*;
-import com.acme.mutualfund.fund.*;
+import com.acme.mutualfund.repository.HoldingRepository;
+import com.acme.mutualfund.serviceimplementaion.PortfolioServiceImpl;
+import com.acme.mutualfund.repository.NavRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,7 +33,7 @@ import java.util.*;
 @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 public class PortfolioController {
 
-    private final PortfolioService portfolioService;
+    private final PortfolioServiceImpl portfolioService;
     private final HoldingRepository holdings;
     private final NavRepository navs;
     private final TradingDayProvider tradingDay; // inject instead of hardcoding timezone

@@ -1,4 +1,4 @@
-package com.acme.mutualfund.auth;
+package com.acme.mutualfund.entity;
 
 import com.acme.mutualfund.enums.Role;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.acme.mutualfund.config;
+package com.acme.mutualfund.trading;
 
 import java.time.LocalDate;
 

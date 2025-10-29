@@ -1,7 +1,8 @@
-package com.acme.mutualfund.portfolio;
+package com.acme.mutualfund.repository;
 
 import java.util.*;
 
+import com.acme.mutualfund.entity.Holding;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import jakarta.persistence.LockModeType;

@@ -1,5 +1,7 @@
-package com.acme.mutualfund.auth;
+package com.acme.mutualfund.controller;
 
+import com.acme.mutualfund.repository.AccountRepository;
+import com.acme.mutualfund.serviceimplementaion.AccountServiceImpl;
 import com.acme.mutualfund.dto.PrincipalDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 class AdminController {
 
-    private final AccountService accounts;
+    private final AccountServiceImpl accounts;
     private final AccountRepository repo;
 
     @Operation(

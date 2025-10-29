@@ -1,6 +1,6 @@
 package com.acme.mutualfund.config;
 
-import com.acme.mutualfund.auth.AccountRepository;
+import com.acme.mutualfund.repository.AccountRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
