@@ -1,6 +1,7 @@
-package com.acme.mutualfund.fund;
+package com.acme.mutualfund.controller;
 
 import com.acme.mutualfund.dto.*;
+import com.acme.mutualfund.serviceimplementaion.FundServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,7 +24,7 @@ import java.util.List;
 @SecurityRequirement(name = "basicAuth")
 public class FundController {
 
-    private final FundService fundService;
+    private final FundServiceImpl fundService;
 
     @Operation(
             summary = "Create a new fund",

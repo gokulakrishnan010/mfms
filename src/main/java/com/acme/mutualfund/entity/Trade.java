@@ -1,7 +1,6 @@
-package com.acme.mutualfund.portfolio;
+package com.acme.mutualfund.entity;
 
 import com.acme.mutualfund.enums.TransactionType;
-import com.acme.mutualfund.fund.Fund;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

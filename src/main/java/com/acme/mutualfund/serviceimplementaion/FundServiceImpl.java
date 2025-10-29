@@ -1,18 +1,21 @@
-package com.acme.mutualfund.fund;
+package com.acme.mutualfund.serviceimplementaion;
 
-import com.acme.mutualfund.config.TradingClock;
-import com.acme.mutualfund.dto.*;
+import com.acme.mutualfund.trading.TradingClock;
 
 import java.math.BigDecimal;
 import java.util.*;
 
+import com.acme.mutualfund.entity.Fund;
+import com.acme.mutualfund.entity.Nav;
+import com.acme.mutualfund.repository.FundRepository;
+import com.acme.mutualfund.repository.NavRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class FundService {
+public class FundServiceImpl {
     private final FundRepository funds;
     private final NavRepository navs;
     private final TradingClock clock;

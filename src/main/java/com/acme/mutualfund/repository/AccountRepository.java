@@ -1,7 +1,8 @@
-package com.acme.mutualfund.auth;
+package com.acme.mutualfund.repository;
 
 import java.util.Optional;
 
+import com.acme.mutualfund.entity.UserAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccountRepository extends JpaRepository<UserAccount, String> {
