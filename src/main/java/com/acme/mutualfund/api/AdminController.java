@@ -1,7 +1,7 @@
-package com.acme.mutualfund.controller;
+package com.acme.mutualfund.api;
 
 import com.acme.mutualfund.repository.AccountRepository;
-import com.acme.mutualfund.serviceimplementaion.AccountServiceImpl;
+import com.acme.mutualfund.service.AccountService;
 import com.acme.mutualfund.dto.PrincipalDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Tag(name = "Admin")
@@ -24,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 class AdminController {
 
-    private final AccountServiceImpl accounts;
+    private final AccountService accounts;
     private final AccountRepository repo;
 
     @Operation(
@@ -52,8 +51,7 @@ class AdminController {
     @ApiResponse(responseCode = "404", description = "User not found")
     @DeleteMapping("/users/{username}")
     ResponseEntity<Void> disable(@PathVariable String username) {
-        // Service should throw NotFoundException if user doesn't exist
         accounts.disable(username);
-        return ResponseEntity.noContent().build(); // 204
+        return ResponseEntity.noContent().build();
     }
 }

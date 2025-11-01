@@ -1,5 +1,6 @@
 package com.acme.mutualfund.dto;
 
+import com.acme.mutualfund.entity.Trade;
 import com.acme.mutualfund.enums.TransactionType;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -33,4 +34,11 @@ public record TradeDto(
                 format = "date-time", accessMode = Schema.AccessMode.READ_ONLY)
         Instant ts
 ) {
+    public static TradeDto from(Trade t) {
+        var symbol = t.getFund() != null ? t.getFund().getSymbol() : null;
+        return new TradeDto(
+                t.getId(), t.getType(), symbol, t.getUnits(),
+                 t.getNav(), t.getAmount(), t.getTs()
+        );
+    }
 }

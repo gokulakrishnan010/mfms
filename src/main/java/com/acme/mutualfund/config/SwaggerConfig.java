@@ -1,3 +1,4 @@
+/*
 package com.acme.mutualfund.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
@@ -12,8 +13,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("My API Documentation")
+                        .title("MFMS API Documentation")
                         .version("1.0")
-                        .description("Documentation for My Spring Boot Application API"));
+                        .description("Documentation for MFMS Spring Boot Application API"));
     }
 }
+*/

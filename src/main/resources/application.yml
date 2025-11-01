@@ -71,5 +71,6 @@ springdoc:
     path: /swagger-ui.html
 
 app:
-  trading: "Asia/Kolkata"
+  trading:
+    zone: Asia/Kolkata
 

@@ -8,7 +8,7 @@
     <property name="HOST" value="${HOSTNAME:--${appProfile}}"/>
 
     <!-- Reduce noisy libs (optional) -->
-    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework" level="DEBUG"/>
     <logger name="org.hibernate.SQL" level="WARN"/>
     <logger name="org.flywaydb" level="INFO"/>
     <logger name="io.opentelemetry" level="INFO"/>

@@ -29,7 +29,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/enroll", "/api/v1/auth/enroll-admin", "/ping").permitAll()
+                        .requestMatchers("/api/v1/auth/enroll", "/api/v1/auth/enroll/admin", "/ping").permitAll()
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
@@ -70,7 +70,7 @@ public class SecurityConfig {
         return username -> repo.findByUsername(username)
                 .map(acc -> User.withUsername(acc.getUsername())
                         .password(acc.getPasswordHash())
-                        .roles(acc.getRole().name())  // e.g., ADMIN / USER (Spring will prefix ROLE_)
+                        .roles(acc.getRole().name())
                         .disabled(!acc.isEnabled())
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));

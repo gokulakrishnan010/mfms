@@ -1,57 +1,47 @@
 package com.acme.mutualfund.serviceimplementaion;
 
-import com.acme.mutualfund.trading.TradingClock;
-
-import java.math.BigDecimal;
-import java.util.*;
-
+import com.acme.mutualfund.dto.FundDto;
 import com.acme.mutualfund.entity.Fund;
 import com.acme.mutualfund.entity.Nav;
 import com.acme.mutualfund.repository.FundRepository;
 import com.acme.mutualfund.repository.NavRepository;
+import com.acme.mutualfund.service.FundService;
+import com.acme.mutualfund.trading.TradingClock;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
-public class FundServiceImpl {
+public class FundServiceImpl implements FundService {
     private final FundRepository funds;
-    private final NavRepository navs;
     private final TradingClock clock;
+    private final NavRepository navs;
 
+    @Override
+    public Optional<Fund> getBySymbol(String symbol) {
+        return funds.findById(symbol);
+    }
+
+    @Override
     @Transactional
     public Fund create(String symbol, String name) {
-        if (funds.existsById(symbol)) throw new IllegalArgumentException("FUND_EXISTS");
-        return funds.save(Fund.builder().symbol(symbol).name(name).build());
-    }
-
-    @Transactional
-    public Nav setTodayNav(String symbol, BigDecimal nav) {
-        if (nav == null || nav.signum() <= 0) throw new IllegalArgumentException("NAV_MUST_BE_POSITIVE");
-        var fund = funds.findById(symbol).orElseThrow(() -> new IllegalArgumentException("FUND_NOT_FOUND"));
-        var today = clock.today();
-        var existing = navs.findByFundAndDate(fund, today).orElse(null);
-        if (existing == null) {
-            return navs.save(Nav.builder().fund(fund).date(today).nav(nav).build());
-        } else {
-            existing.setNav(nav);
-            return navs.save(existing);
+        if (funds.existsById(symbol)) {
+            return funds.findById(symbol).get();
         }
+        return funds.save(new Fund(symbol, name));
     }
 
-    public Optional<java.math.BigDecimal> todayNav(String symbol) {
-        return funds.findById(symbol)
-                .flatMap(f -> navs.findByFundAndDate(f, clock.today()))
-                .map(Nav::getNav);
-    }
-
-    public List<com.acme.mutualfund.dto.FundDto> listWithTodayNav() {
+    @Override
+    public List<FundDto> fundWithTodayNav() {
         var today = clock.today();
         var all = funds.findAll();
         return all.stream().map(f -> {
             var nav = navs.findByFundAndDate(f, today).map(Nav::getNav).orElse(null);
-            return new com.acme.mutualfund.dto.FundDto(f.getSymbol(), f.getName(), nav);
+            return new FundDto(f.getSymbol(), f.getName(), nav);
         }).toList();
     }
 }

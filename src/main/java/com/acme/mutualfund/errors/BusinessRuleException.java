@@ -1,5 +1,9 @@
 package com.acme.mutualfund.errors;
 
+
+import lombok.Getter;
+
+@Getter
 public class BusinessRuleException extends RuntimeException {
 
     private final String code;
@@ -14,7 +18,4 @@ public class BusinessRuleException extends RuntimeException {
         this.code = code;
     }
 
-    public String getCode() {
-        return code;
-    }
 }

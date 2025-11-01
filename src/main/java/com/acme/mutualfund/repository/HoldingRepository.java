@@ -10,7 +10,7 @@ import jakarta.persistence.LockModeType;
 public interface HoldingRepository extends JpaRepository<Holding, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select h from Holding h where h.username=:username and h.fund.symbol=:symbol")
-    Optional<Holding> findForUpdate(@Param("username") String username, @Param("symbol") String symbol);
+    Optional<Holding> findByUsernameAndFund(@Param("username") String username, @Param("symbol") String symbol);
 
-    java.util.List<Holding> findByUsername(String username);
+    List<Holding> findByUsername(String username);
 }

@@ -24,4 +24,12 @@ public class Nav {
     private LocalDate date;
     @Column(precision = 19, scale = 6)
     private BigDecimal nav;
+
+    public static Nav of(Fund fund, LocalDate date, BigDecimal navValue) {
+        Nav n = new Nav();
+        n.setFund(fund);
+        n.setDate(date);
+        n.setNav(navValue);
+        return n;
+    }
 }
